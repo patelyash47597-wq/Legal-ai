@@ -60,9 +60,13 @@ _std_embeddings = None
 def _get_model():
     global _model
     if _model is None:
-        print("🔄 Loading InLegalBERT for risk engine...")
-        _model = SentenceTransformer("law-ai/InLegalBERT")
-        print("✅ Risk engine model loaded")
+        try:
+            print("🔄 Loading InLegalBERT for risk engine...")
+            _model = SentenceTransformer("law-ai/InLegalBERT")
+            print("✅ Risk engine model loaded")
+        except Exception as exc:
+            print(f"⚠️ Could not load risk model: {exc}")
+            _model = None
     return _model
 
 
@@ -135,34 +139,36 @@ def _load_standard_data(standard_path):
     for item in _std_data:
         grouped_items.setdefault(item["clause_type"], []).append(item)
 
-    _std_embeddings = []
-    grouped_embeddings = {}
-    grouped_indexes = {}
+    if model is not None:
+        _std_embeddings = []
+        grouped_indexes = {}
+        for clause_type, items in grouped_items.items():
+            embeddings = np.array([_encode_clause(item["text"], model) for item in items]).astype("float32")
+            index = faiss.IndexFlatL2(embeddings.shape[1])
+            index.add(embeddings)
+            grouped_indexes[clause_type] = {
+                "index": index,
+                "items": items,
+                "embeddings": embeddings,
+            }
+            _std_embeddings.append(embeddings)
 
-    for clause_type, items in grouped_items.items():
-        embeddings = np.array([_encode_clause(item["text"], model) for item in items]).astype("float32")
-        grouped_embeddings[clause_type] = embeddings
-        index = faiss.IndexFlatL2(embeddings.shape[1])
-        index.add(embeddings)
-        grouped_indexes[clause_type] = {
-            "index": index,
-            "items": items,
-            "embeddings": embeddings,
-        }
-        _std_embeddings.append(embeddings)
+        _standard_indexes = grouped_indexes
+        all_embeddings = np.vstack(_std_embeddings).astype("float32")
 
-    _standard_indexes = grouped_indexes
-    all_embeddings = np.vstack(_std_embeddings).astype("float32")
+        if len(_std_data) < 50:
+            _iso_forest = None
+            print("⚠️ Isolation Forest disabled because the standard dataset has fewer than 50 clauses")
+        else:
+            _iso_forest = IsolationForest(contamination="auto", n_estimators=200, random_state=42)
+            _iso_forest.fit(all_embeddings)
+            print("✅ Isolation Forest trained")
 
-    if len(_std_data) < 50:
-        _iso_forest = None
-        print("⚠️ Isolation Forest disabled because the standard dataset has fewer than 50 clauses")
+        print(f"✅ FAISS indexes built for {len(_standard_indexes)} clause categories")
     else:
-        _iso_forest = IsolationForest(contamination="auto", n_estimators=200, random_state=42)
-        _iso_forest.fit(all_embeddings)
-        print("✅ Isolation Forest trained")
-
-    print(f"✅ FAISS indexes built for {len(_standard_indexes)} clause categories")
+        _standard_indexes = {}
+        _iso_forest = None
+        print("⚠️ FAISS and anomaly scoring are disabled because embeddings could not be loaded.")
 
 
 def evaluate_clause_risk(
@@ -233,28 +239,33 @@ def analyze_risk(contract_data: list, standard_path: str = "data/processed/stand
     model = _get_model()
     _load_standard_data(standard_path)
 
-    print("⏳ Calibrating similarity thresholds...")
-    all_similarities = []
+    if model is not None and _standard_indexes:
+        print("⏳ Calibrating similarity thresholds...")
+        all_similarities = []
 
-    for clause in contract_data:
-        clause_text = clean_clause(clause.get("text", ""))
-        if not clause_text:
-            continue
+        for clause in contract_data:
+            clause_text = clean_clause(clause.get("text", ""))
+            if not clause_text:
+                continue
 
-        predicted_type = classify_clause(clause_text)
-        candidate_group = _standard_indexes.get(predicted_type)
-        if candidate_group is None:
-            continue
+            predicted_type = classify_clause(clause_text)
+            candidate_group = _standard_indexes.get(predicted_type)
+            if candidate_group is None:
+                continue
 
-        clause_emb = np.array(_encode_clause(clause_text, model)).astype("float32").reshape(1, -1)
-        _, indices = candidate_group["index"].search(clause_emb, k=1)
-        matched_idx = int(indices[0][0])
-        similarity = float(cosine_similarity(clause_emb, [candidate_group["embeddings"][matched_idx]])[0][0])
-        all_similarities.append(similarity)
+            clause_emb = np.array(_encode_clause(clause_text, model)).astype("float32").reshape(1, -1)
+            _, indices = candidate_group["index"].search(clause_emb, k=1)
+            matched_idx = int(indices[0][0])
+            similarity = float(cosine_similarity(clause_emb, [candidate_group["embeddings"][matched_idx]])[0][0])
+            all_similarities.append(similarity)
 
-    HIGH_THRESH = float(np.percentile(all_similarities, 25)) if all_similarities else 0.60
-    MED_THRESH = float(np.percentile(all_similarities, 50)) if all_similarities else 0.75
-    print(f"✅ HIGH < {HIGH_THRESH:.3f} | MEDIUM < {MED_THRESH:.3f}")
+        HIGH_THRESH = float(np.percentile(all_similarities, 25)) if all_similarities else 0.60
+        MED_THRESH = float(np.percentile(all_similarities, 50)) if all_similarities else 0.75
+        print(f"✅ HIGH < {HIGH_THRESH:.3f} | MEDIUM < {MED_THRESH:.3f}")
+    else:
+        HIGH_THRESH = 0.60
+        MED_THRESH = 0.75
+        print("⚠️ Similarity calibration skipped because embeddings are unavailable.")
 
     results = []
 
@@ -263,26 +274,29 @@ def analyze_risk(contract_data: list, standard_path: str = "data/processed/stand
         if not clause_text:
             continue
 
-        clause_emb = np.array(_encode_clause(clause_text, model)).astype("float32").reshape(1, -1)
         predicted_type = classify_clause(clause_text)
         candidate_group = _standard_indexes.get(predicted_type)
 
         similarity = 0.0
         matched_clause = None
-        clause_type = "Unknown"
+        clause_type = predicted_type
 
-        if candidate_group is not None:
+        if model is not None and candidate_group is not None:
+            clause_emb = np.array(_encode_clause(clause_text, model)).astype("float32").reshape(1, -1)
             _, indices = candidate_group["index"].search(clause_emb, k=1)
             matched_idx = int(indices[0][0])
             matched_clause = candidate_group["items"][matched_idx]
             similarity = float(cosine_similarity(clause_emb, [candidate_group["embeddings"][matched_idx]])[0][0])
             clause_type = matched_clause.get("clause_type", predicted_type)
-
-        if _iso_forest is None:
-            anomaly_score = 0.0
         else:
+            clause_emb = None
+            anomaly_score = 0.0
+
+        if _iso_forest is not None and clause_emb is not None:
             raw_score = _iso_forest.score_samples(clause_emb)[0]
             anomaly_score = float(1 / (1 + np.exp(5 * raw_score)))
+        else:
+            anomaly_score = 0.0
 
         rule_result = evaluate_clause_risk(
             clause_text=clause_text,
@@ -299,7 +313,7 @@ def analyze_risk(contract_data: list, standard_path: str = "data/processed/stand
             matched_standard_clause = matched_clause["text"]
         else:
             matched_standard_clause = None
-            clause_type = "Unknown"
+            clause_type = predicted_type if clause_type == "Unknown" else clause_type
 
         results.append({
             "contract_clause": clause_text,

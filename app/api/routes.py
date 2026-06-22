@@ -38,13 +38,24 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
         raise HTTPException(status_code=400, detail="Only PDF files accepted.")
 
     upload_path = os.path.join(UPLOADS_DIR, file.filename)
-    content     = await file.read()
+    content = await file.read()
     with open(upload_path, "wb") as f:
         f.write(content)
 
-    contract_db = crud.create_contract(db=db, filename=file.filename,
-        original_name=file.filename, file_path=upload_path, file_size=len(content))
-    print(f"✅ Contract saved to MySQL (id={contract_db.id})")
+    contract_db = None
+    db_error = None
+    try:
+        contract_db = crud.create_contract(
+            db=db,
+            filename=file.filename,
+            original_name=file.filename,
+            file_path=upload_path,
+            file_size=len(content),
+        )
+        print(f"✅ Contract saved to MySQL (id={contract_db.id})")
+    except Exception as exc:
+        db_error = exc
+        print(f"⚠️ DB unavailable during contract creation: {exc}")
 
     try:
         from app.services.parser import parse_pdf, save_contract_json
@@ -53,7 +64,8 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
         text = contract_data["text"]
     except Exception as e:
         traceback.print_exc()
-        crud.update_contract_status(db, contract_db.id, "failed")
+        if contract_db is not None:
+            crud.update_contract_status(db, contract_db.id, "failed")
         raise HTTPException(status_code=500, detail=f"PDF parsing failed: {e}")
 
     try:
@@ -62,49 +74,97 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
         save_clauses(clauses, f"{PROCESSED_DIR}/industry_clauses.json")
     except Exception as e:
         traceback.print_exc()
-        crud.update_contract_status(db, contract_db.id, "failed")
+        if contract_db is not None:
+            crud.update_contract_status(db, contract_db.id, "failed")
         raise HTTPException(status_code=500, detail=f"Clause extraction failed: {e}")
 
-    clause_db_objects = crud.create_clauses_bulk(db=db, contract_id=contract_db.id, clauses=clauses)
-    print(f"✅ {len(clause_db_objects)} clauses saved to MySQL")
+    clause_db_objects = []
+    if contract_db is not None:
+        try:
+            clause_db_objects = crud.create_clauses_bulk(
+                db=db,
+                contract_id=contract_db.id,
+                clauses=clauses,
+            )
+            print(f"✅ {len(clause_db_objects)} clauses saved to MySQL")
+        except Exception as exc:
+            db_error = exc
+            print(f"⚠️ DB unavailable during clause bulk insert: {exc}")
 
     try:
         from app.services.risk_engine import analyze_risk, save_risk_results
-        risk_results = analyze_risk(clauses, standard_path=f"{PROCESSED_DIR}/standard_clauses.json")
+        risk_results = analyze_risk(
+            clauses,
+            standard_path=f"{PROCESSED_DIR}/standard_clauses.json",
+        )
         save_risk_results(risk_results, f"{PROCESSED_DIR}/industry_risk_analysis.json")
     except Exception as e:
         traceback.print_exc()
-        crud.update_contract_status(db, contract_db.id, "failed")
+        if contract_db is not None:
+            crud.update_contract_status(db, contract_db.id, "failed")
         raise HTTPException(status_code=500, detail=f"Risk analysis failed: {e}")
 
     try:
         from app.services.explainer import generate_explanations, save_final_results
-        final_results   = generate_explanations(risk_results)
+        final_results = generate_explanations(risk_results)
         report_filename = file.filename.replace(".pdf", "_report.json")
         save_final_results(final_results, f"{PROCESSED_DIR}/{report_filename}")
         save_final_results(final_results, f"{PROCESSED_DIR}/final_contract_analysis.json")
     except Exception as e:
         traceback.print_exc()
-        crud.update_contract_status(db, contract_db.id, "failed")
+        if contract_db is not None:
+            crud.update_contract_status(db, contract_db.id, "failed")
         raise HTTPException(status_code=500, detail=f"AI explanation failed: {e}")
 
-    crud.create_risk_results_bulk(db=db, clause_db_objects=clause_db_objects, risk_results=final_results)
+    if contract_db is not None and clause_db_objects:
+        try:
+            crud.create_risk_results_bulk(
+                db=db,
+                clause_db_objects=clause_db_objects,
+                risk_results=final_results,
+            )
+        except Exception as exc:
+            db_error = exc
+            print(f"⚠️ DB unavailable during risk results insert: {exc}")
 
-    risk_levels  = [r["risk_level"] for r in final_results]
+    risk_levels = [r["risk_level"] for r in final_results]
     overall_risk = "HIGH" if "HIGH" in risk_levels else "MEDIUM" if "MEDIUM" in risk_levels else "LOW"
 
-    crud.create_analysis_report(db=db, contract_id=contract_db.id,
-        total_clauses=len(final_results), high_risk_count=risk_levels.count("HIGH"),
-        medium_risk_count=risk_levels.count("MEDIUM"), low_risk_count=risk_levels.count("LOW"),
-        overall_risk=overall_risk, report_filename=report_filename)
+    if contract_db is not None:
+        try:
+            crud.create_analysis_report(
+                db=db,
+                contract_id=contract_db.id,
+                total_clauses=len(final_results),
+                high_risk_count=risk_levels.count("HIGH"),
+                medium_risk_count=risk_levels.count("MEDIUM"),
+                low_risk_count=risk_levels.count("LOW"),
+                overall_risk=overall_risk,
+                report_filename=report_filename,
+            )
+            crud.update_contract_status(db, contract_db.id, "completed")
+            print("✅ All data saved to MySQL!")
+        except Exception as exc:
+            db_error = exc
+            print(f"⚠️ DB unavailable during final report write: {exc}")
 
-    crud.update_contract_status(db, contract_db.id, "completed")
-    print("✅ All data saved to MySQL!")
+    response = {
+        "contract_db_id": contract_db.id if contract_db is not None else None,
+        "filename": file.filename,
+        "total_clauses": len(final_results),
+        "high_risk_count": risk_levels.count("HIGH"),
+        "medium_risk_count": risk_levels.count("MEDIUM"),
+        "low_risk_count": risk_levels.count("LOW"),
+        "overall_risk": overall_risk,
+        "clauses": final_results,
+        "report_saved_as": report_filename,
+        "db_saved": contract_db is not None and db_error is None,
+    }
 
-    return {"contract_db_id": contract_db.id, "filename": file.filename,
-        "total_clauses": len(final_results), "high_risk_count": risk_levels.count("HIGH"),
-        "medium_risk_count": risk_levels.count("MEDIUM"), "low_risk_count": risk_levels.count("LOW"),
-        "overall_risk": overall_risk, "clauses": final_results, "report_saved_as": report_filename}
+    if db_error is not None:
+        response["db_warning"] = str(db_error)
+
+    return response
 
 @router.get("/contracts", tags=["MySQL Data"])
 async def get_all_contracts(db: Session = Depends(get_db)):
@@ -114,10 +174,11 @@ async def get_all_contracts(db: Session = Depends(get_db)):
             {"id": c.id, "filename": c.filename, "file_size": c.file_size,
              "status": c.status, "uploaded_at": str(c.uploaded_at)} for c in contracts]}
     except SQLAlchemyError as exc:
-        raise HTTPException(
-            status_code=503,
-            detail="Could not load contracts from the database.",
-        ) from exc
+        return {
+            "total": 0,
+            "contracts": [],
+            "warning": f"Could not load contracts from the database: {exc}",
+        }
 
 @router.get("/contracts/{contract_id}/results", tags=["MySQL Data"])
 async def get_contract_results(contract_id: int, db: Session = Depends(get_db)):
@@ -142,10 +203,34 @@ async def get_all_reports_db(db: Session = Depends(get_db)):
              "low_risk_count": r.low_risk_count, "overall_risk": r.overall_risk,
              "report_filename": r.report_filename, "created_at": str(r.created_at)} for r in reports]}
     except SQLAlchemyError as exc:
-        raise HTTPException(
-            status_code=503,
-            detail="Could not load reports from the database.",
-        ) from exc
+        fallback_reports = []
+        try:
+            for index, filename in enumerate(sorted(os.listdir(PROCESSED_DIR)), start=1):
+                if not filename.endswith("_report.json"):
+                    continue
+                report_path = os.path.join(PROCESSED_DIR, filename)
+                with open(report_path, "r", encoding="utf-8") as f:
+                    report_items = json.load(f)
+                risk_levels = [item.get("risk_level", "LOW") for item in report_items]
+                fallback_reports.append({
+                    "id": index,
+                    "contract_id": None,
+                    "total_clauses": len(report_items),
+                    "high_risk_count": risk_levels.count("HIGH"),
+                    "medium_risk_count": risk_levels.count("MEDIUM"),
+                    "low_risk_count": risk_levels.count("LOW"),
+                    "overall_risk": "HIGH" if "HIGH" in risk_levels else "MEDIUM" if "MEDIUM" in risk_levels else "LOW",
+                    "report_filename": filename,
+                    "created_at": None,
+                })
+        except Exception:
+            fallback_reports = []
+
+        return {
+            "total": len(fallback_reports),
+            "reports": fallback_reports,
+            "warning": f"Could not load reports from the database: {exc}",
+        }
 
 @router.get("/report", tags=["JSON Files"])
 async def get_default_report():

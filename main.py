@@ -59,11 +59,11 @@ async def ensure_cors_headers(request: Request, call_next):
     origin = request.headers.get("origin")
     try:
         response = await call_next(request)
-    except Exception:
+    except Exception as exc:
         response = JSONResponse(
             status_code=500,
             content={
-                "detail": "Internal server error",
+                "detail": f"Internal server error: {exc}",
                 "path": request.url.path,
             },
         )
@@ -83,7 +83,7 @@ async def exception_handler(request: Request, exc: Exception):
     response = JSONResponse(
         status_code=500,
         content={
-            "detail": "Internal server error",
+            "detail": f"Internal server error: {exc}",
             "path": request.url.path,
         },
     )

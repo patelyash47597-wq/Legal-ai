@@ -30,7 +30,7 @@ services:
     staticPublishPath: legal-ai-frontend/build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://legal-ai-backend.onrender.com
+        value: https://legal-ai-backend-xhht.onrender.com
 
 databases:
   - name: legal-ai-db
