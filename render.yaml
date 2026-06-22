@@ -26,7 +26,6 @@ services:
   - type: web
     name: legal-ai-frontend
     runtime: static
-    region: oregon
     plan: free
     buildCommand: cd legal-ai-frontend && npm install && npm run build
     staticPublishPath: legal-ai-frontend/build
