@@ -1,7 +1,7 @@
 services:
   - type: web
     name: legal-ai-backend
-    env: python
+    runtime: python
     region: oregon
     plan: free
     buildCommand: |
@@ -22,9 +22,10 @@ services:
         sync: false
       - key: TESSERACT_CMD
         value: /usr/bin/tesseract
-  - type: static
+
+  - type: web
     name: legal-ai-frontend
-    env: static
+    runtime: static
     region: oregon
     plan: free
     buildCommand: cd legal-ai-frontend && npm install && npm run build
