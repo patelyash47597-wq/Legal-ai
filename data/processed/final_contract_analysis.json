@@ -1,20 +1,6 @@
 [
     {
-        "contract_clause": "NON-DISCLOSURE AGREEMENT (TEST DOCUMENT This Non-Disclosure Agreement (\"Agreement\") is entered into between the Disclosing Party and the Receiving Party",
-        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
-        "clause_type": "Confidentiality",
-        "similarity_score": 0.7201806306838989,
-        "anomaly_score": 0.0,
-        "combined_risk_score": 0.08394581079483032,
-        "risk_level": "LOW",
-        "rule_score": 0.0,
-        "rule_triggered": false,
-        "matched_patterns": [],
-        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
-        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
-    },
-    {
-        "contract_clause": "Definition of Confidential Information Confidential Information includes all non-public business, technical, financial, and proprietary information disclosed by the Disclosing Party",
+        "contract_clause": "Definition of Confidential Information Confidential Information includes business plans, source code, customer lists, financial information, trade secrets, and any information marked confidential",
         "matched_standard_clause": null,
         "clause_type": "Unknown",
         "similarity_score": 0.0,
@@ -28,7 +14,21 @@
         "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
     },
     {
-        "contract_clause": "Exclusions Confidential Information does not include information that is publicly available, independently developed, or lawfully obtained from a third party",
+        "contract_clause": "Obligations of Receiving Party The Receiving Party shall protect Confidential Information and shall not disclose it to third parties without prior written consent",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.8159129619598389,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.05522611141204834,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": false,
+        "matched_patterns": [],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Exclusions Information that is publicly available, independently developed, or lawfully obtained from a third party shall not be considered Confidential Information",
         "matched_standard_clause": null,
         "clause_type": "Unknown",
         "similarity_score": 0.0,
@@ -42,12 +42,12 @@
         "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
     },
     {
-        "contract_clause": "Return or Destruction of Materials Upon request, the Receiving Party shall promptly return or destroy all Confidential Information and related materials",
+        "contract_clause": "Return of Information Upon written request, the Receiving Party shall return or destroy all Confidential Information",
         "matched_standard_clause": "The receiving party shall not disclose confidential information.",
         "clause_type": "Confidentiality",
-        "similarity_score": 0.7853695154190063,
+        "similarity_score": 0.831919252872467,
         "anomaly_score": 0.0,
-        "combined_risk_score": 0.06438914537429809,
+        "combined_risk_score": 0.050424224138259886,
         "risk_level": "LOW",
         "rule_score": 0.0,
         "rule_triggered": true,
@@ -58,87 +58,53 @@
         "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
     },
     {
-        "contract_clause": "Governing Law This Agreement shall be governed by and construed in accordance with the laws of the applicable jurisdiction",
-        "matched_standard_clause": null,
-        "clause_type": "Unknown",
-        "similarity_score": 0.0,
-        "anomaly_score": 0.0,
-        "combined_risk_score": 0.3,
-        "risk_level": "LOW",
-        "rule_score": 0.0,
-        "rule_triggered": true,
-        "matched_patterns": [
-            "governing law"
-        ],
-        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
-        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
-    },
-    {
-        "contract_clause": "Severability If any provision of this Agreement is held invalid or unenforceable, the remaining provisions shall remain in full force and effect",
-        "matched_standard_clause": null,
-        "clause_type": "Unknown",
-        "similarity_score": 0.0,
-        "anomaly_score": 0.0,
-        "combined_risk_score": 0.3,
-        "risk_level": "LOW",
-        "rule_score": 0.0,
-        "rule_triggered": true,
-        "matched_patterns": [
-            "severability"
-        ],
-        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
-        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
-    },
-    {
-        "contract_clause": "Entire Agreement This Agreement constitutes the entire understanding between the parties and supersedes all prior agreements relating to the subject matter",
-        "matched_standard_clause": null,
-        "clause_type": "Unknown",
-        "similarity_score": 0.0,
-        "anomaly_score": 0.0,
-        "combined_risk_score": 0.3,
-        "risk_level": "LOW",
-        "rule_score": 0.0,
-        "rule_triggered": true,
-        "matched_patterns": [
-            "entire agreement"
-        ],
-        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
-        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
-    },
-    {
-        "contract_clause": "Unlimited Disclosure Rights The Receiving Party may disclose Confidential Information to any third party without obtaining prior written consent",
+        "contract_clause": "Term The confidentiality obligations shall remain in effect for five years after termination of this Agreement",
         "matched_standard_clause": "The receiving party shall not disclose confidential information.",
         "clause_type": "Confidentiality",
-        "similarity_score": 0.7933889627456665,
+        "similarity_score": 0.7063295841217041,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.08810112476348876,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": false,
+        "matched_patterns": [],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Risky Clause - Broad Disclosure Right The Receiving Party may disclose Confidential Information to any affiliate without obtaining prior consent from the Disclosing Party",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.828821063041687,
         "anomaly_score": 0.0,
         "combined_risk_score": 1.0,
         "risk_level": "HIGH",
         "rule_score": 1.0,
         "rule_triggered": true,
         "matched_patterns": [
-            "any third party"
+            "may disclose confidential information"
         ],
         "rule_reason": "High-risk rule pattern matched.",
-        "ai_explanation": "Here are three short bullets:\n\n* 1. What appears different from the standard clause:\nThe incoming clause allows for unlimited disclosure of confidential information without prior written consent, whereas the approved standard clause prohibits disclosure altogether.\n\n* 2. Why the clause may be risky:\nThis clause may be risky because it deviates significantly from the standard practice of protecting confidential information. Allowing unlimited disclosure without consent could potentially expose sensitive information to unauthorized parties.\n\n* 3. What evidence is available and what is not:\nThe evidence available is the text of the incoming and approved standard clauses. What is not available is the context in which these clauses are being used (e.g., the specific agreement or contract they are part of), the parties involved, and any additional relevant information that might provide more context or clarify the intended meaning of the clauses. The explanation of risk is based mainly on anomaly detection, as the incoming clause deviates from the standard practice."
+        "ai_explanation": "Here are three short bullets explaining the differences and risks:\n\n* **What appears different from the standard clause**: The incoming clause allows the Receiving Party to disclose Confidential Information to any affiliate without obtaining prior consent from the Disclosing Party, whereas the Approved Standard Clause does not mention any exceptions or specific entities that can receive the information.\n* **Why the clause may be risky**: This clause may be risky because it deviates from the standard practice of requiring consent from the Disclosing Party before disclosing confidential information. This could potentially lead to unauthorized disclosure of sensitive information.\n* **Evidence and limitations**: The evidence available is the incoming clause and the approved standard clause. The explanation of risk is based on the anomaly detection of the clause deviating from the standard practice. The specific risks and consequences are not specified in the provided texts, and therefore, cannot be determined."
     },
     {
-        "contract_clause": "No Liability The Receiving Party shall bear no liability for unauthorized disclosure of Confidential Information",
+        "contract_clause": "Risky Clause - Unlimited Liability Waiver The Disclosing Party waives all claims arising from unauthorized disclosure of Confidential Information",
         "matched_standard_clause": "The receiving party shall not disclose confidential information.",
         "clause_type": "Confidentiality",
-        "similarity_score": 0.7918142080307007,
+        "similarity_score": 0.7346363067626953,
         "anomaly_score": 0.0,
         "combined_risk_score": 1.0,
         "risk_level": "HIGH",
         "rule_score": 1.0,
         "rule_triggered": true,
         "matched_patterns": [
-            "no liability"
+            "waives all claims"
         ],
         "rule_reason": "High-risk rule pattern matched.",
-        "ai_explanation": "Based on the provided clauses, here are three short bullets:\n\n* What appears different from the standard clause:\n  - The incoming clause includes a specific exemption for liability, stating that the Receiving Party shall bear no liability for unauthorized disclosure of Confidential Information. This is not present in the approved standard clause.\n\n* Why the clause may be risky:\n  - This clause may be risky due to anomaly detection, as it introduces a specific exemption for liability that is not present in the standard clause. This could potentially create an unexpected outcome if unauthorized disclosure occurs.\n\n* What evidence is available and what is not:\n  - Evidence available: The incoming clause and the approved standard clause are provided.\n  - Evidence not available: There is no information about the context in which these clauses are being used, the specific definition of Confidential Information, or any other relevant details that might provide more clarity on the intended meaning and potential risks."
+        "ai_explanation": "Based on the provided clauses:\n\n* 1. What appears different from the standard clause:\nThe main difference is that the incoming clause (Risky Clause) includes an unlimited liability waiver, whereas the approved standard clause does not mention liability. The incoming clause specifically states that the Disclosing Party waives all claims arising from unauthorized disclosure of Confidential Information.\n* 2. Why the clause may be risky:\nThe clause may be risky because it appears to shift liability from the Receiving Party to the Disclosing Party in case of unauthorized disclosure. This could potentially leave the Disclosing Party without protection or recourse in the event of a breach.\n* 3. What evidence is available and what is not:\n- Available evidence: The incoming clause explicitly states the waiver of liability, and the approved standard clause prohibits disclosure of confidential information.\n- Not available evidence: There is no information about the circumstances under which the waiver would be triggered, the extent of the waiver, or any potential exceptions. This explanation is based on a comparison of the provided clauses and not on any additional information."
     },
     {
-        "contract_clause": "Unilateral Modification The Receiving Party may modify this Agreement at any time without notice to the Disclosing Party",
+        "contract_clause": "Risky Clause - One-Sided Termination The Receiving Party may terminate this Agreement at any time without notice, while the Disclosing Party may not terminate the Agreement",
         "matched_standard_clause": null,
         "clause_type": "Unknown",
         "similarity_score": 0.0,
@@ -154,35 +120,35 @@
         "ai_explanation": "No sufficiently similar standard clause was found. Evidence is insufficient for a detailed comparison. This explanation relies only on the incoming clause and the available evidence. Risk is based mainly on anomaly detection because the clause could not be matched confidently. No specific financial terms, deadlines, penalties, or legal consequences were inferred."
     },
     {
-        "contract_clause": "One-Sided Termination The Receiving Party may terminate this Agreement immediately, while the Disclosing Party shall have no such right",
+        "contract_clause": "Governing Law This Agreement shall be governed by the laws of the applicable jurisdiction",
         "matched_standard_clause": null,
         "clause_type": "Unknown",
         "similarity_score": 0.0,
         "anomaly_score": 0.0,
-        "combined_risk_score": 0.6,
-        "risk_level": "MEDIUM",
-        "rule_score": 0.6,
+        "combined_risk_score": 0.3,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
         "rule_triggered": true,
         "matched_patterns": [
-            "may terminate"
+            "governing law"
         ],
-        "rule_reason": "Medium-risk rule pattern matched.",
-        "ai_explanation": "No sufficiently similar standard clause was found. Evidence is insufficient for a detailed comparison. This explanation relies only on the incoming clause and the available evidence. Risk is based mainly on anomaly detection because the clause could not be matched confidently. No specific financial terms, deadlines, penalties, or legal consequences were inferred."
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
     },
     {
-        "contract_clause": "Waiver of Claims The Disclosing Party waives all claims arising from any misuse or disclosure of Confidential Information. IN WITNESS WHEREOF, the parties have executed this Agreement",
-        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
-        "clause_type": "Confidentiality",
-        "similarity_score": 0.7384087443351746,
+        "contract_clause": "Severability If any provision is held invalid, the remaining provisions shall remain in effect",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
         "anomaly_score": 0.0,
-        "combined_risk_score": 1.0,
-        "risk_level": "HIGH",
-        "rule_score": 1.0,
+        "combined_risk_score": 0.3,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
         "rule_triggered": true,
         "matched_patterns": [
-            "waives all claims"
+            "severability"
         ],
-        "rule_reason": "High-risk rule pattern matched.",
-        "ai_explanation": "Here are three short bullet points explaining the differences and risks:\n\n* What appears different from the standard clause:\n  - The incoming clause includes a waiver of claims by the Disclosing Party, which is not present in the standard clause.\n  - The incoming clause includes a witness statement, which is not present in the standard clause.\n\n* Why the clause may be risky:\n  - The waiver of claims by the Disclosing Party may be seen as a risk, as it may limit the Disclosing Party's ability to seek redress in case of a breach.\n  - This risk is based mainly on anomaly detection, as the standard clause does not typically include a waiver of claims.\n\n* What evidence is available and what is not:\n  - Evidence available: The incoming clause and the approved standard clause are provided.\n  - Evidence not available: Specific circumstances surrounding the misuse or disclosure of Confidential Information, the parties involved, and the context in which the agreement was executed are not provided."
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring.",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
     }
 ]

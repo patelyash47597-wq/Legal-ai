@@ -6,8 +6,9 @@ Entry point. Run: python main.py
 import os
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.api.routes import router
 from app.database import models
@@ -35,16 +36,61 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+ALLOWED_ORIGINS = [
+    "https://legal-ai-fronted-sbug.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
+
 # ----------------------------------------
 # CORS
 # ----------------------------------------
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
+
+@app.middleware("http")
+async def ensure_cors_headers(request: Request, call_next):
+    origin = request.headers.get("origin")
+    try:
+        response = await call_next(request)
+    except Exception:
+        response = JSONResponse(
+            status_code=500,
+            content={
+                "detail": "Internal server error",
+                "path": request.url.path,
+            },
+        )
+
+    if origin in ALLOWED_ORIGINS:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Vary"] = "Origin"
+    elif origin:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Vary"] = "Origin"
+
+    return response
+
+@app.exception_handler(Exception)
+async def exception_handler(request: Request, exc: Exception):
+    origin = request.headers.get("origin")
+    response = JSONResponse(
+        status_code=500,
+        content={
+            "detail": "Internal server error",
+            "path": request.url.path,
+        },
+    )
+    if origin:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Vary"] = "Origin"
+    return response
 
 # ----------------------------------------
 # ROUTES

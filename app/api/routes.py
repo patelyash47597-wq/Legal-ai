@@ -4,6 +4,7 @@ app/api/routes.py - All API endpoints with MySQL integration.
 import os, json, shutil
 from fastapi import APIRouter, File, UploadFile, HTTPException, Depends
 from fastapi.responses import JSONResponse
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from app.models.schemas import HealthResponse
 from app.database.database import get_db
@@ -100,10 +101,16 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
 
 @router.get("/contracts", tags=["MySQL Data"])
 async def get_all_contracts(db: Session = Depends(get_db)):
-    contracts = crud.get_all_contracts(db)
-    return {"total": len(contracts), "contracts": [
-        {"id": c.id, "filename": c.filename, "file_size": c.file_size,
-         "status": c.status, "uploaded_at": str(c.uploaded_at)} for c in contracts]}
+    try:
+        contracts = crud.get_all_contracts(db)
+        return {"total": len(contracts), "contracts": [
+            {"id": c.id, "filename": c.filename, "file_size": c.file_size,
+             "status": c.status, "uploaded_at": str(c.uploaded_at)} for c in contracts]}
+    except SQLAlchemyError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail="Could not load contracts from the database.",
+        ) from exc
 
 @router.get("/contracts/{contract_id}/results", tags=["MySQL Data"])
 async def get_contract_results(contract_id: int, db: Session = Depends(get_db)):
@@ -120,12 +127,18 @@ async def get_contract_results(contract_id: int, db: Session = Depends(get_db)):
 
 @router.get("/reports/all", tags=["MySQL Data"])
 async def get_all_reports_db(db: Session = Depends(get_db)):
-    reports = crud.get_all_reports(db)
-    return {"total": len(reports), "reports": [
-        {"id": r.id, "contract_id": r.contract_id, "total_clauses": r.total_clauses,
-         "high_risk_count": r.high_risk_count, "medium_risk_count": r.medium_risk_count,
-         "low_risk_count": r.low_risk_count, "overall_risk": r.overall_risk,
-         "report_filename": r.report_filename, "created_at": str(r.created_at)} for r in reports]}
+    try:
+        reports = crud.get_all_reports(db)
+        return {"total": len(reports), "reports": [
+            {"id": r.id, "contract_id": r.contract_id, "total_clauses": r.total_clauses,
+             "high_risk_count": r.high_risk_count, "medium_risk_count": r.medium_risk_count,
+             "low_risk_count": r.low_risk_count, "overall_risk": r.overall_risk,
+             "report_filename": r.report_filename, "created_at": str(r.created_at)} for r in reports]}
+    except SQLAlchemyError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail="Could not load reports from the database.",
+        ) from exc
 
 @router.get("/report", tags=["JSON Files"])
 async def get_default_report():
