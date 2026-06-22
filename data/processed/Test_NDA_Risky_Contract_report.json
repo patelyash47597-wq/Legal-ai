@@ -1,0 +1,92 @@
+[
+    {
+        "contract_clause": "Sample Non-Disclosure Agreement (NDA) - Test Document 1",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.6486868858337402,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.21078786849975586,
+        "risk_level": "HIGH",
+        "ai_explanation": "Based on the provided texts, here are three short bullet points:\n\n* 1. What appears different from the standard clause: \nThe incoming clause is labeled as a \"Sample Non-Disclosure Agreement (NDA) - Test Document 1\", but it only contains a single clause (\"The receiving party shall not disclose confidential information.\") that is similar to the approved standard clause. The main difference is the context and purpose of the clause, which is not explicitly stated in the incoming clause.\n\n* 2. Why the clause may be risky:\nThis clause may be risky because it lacks context and specific details about what constitutes \"confidential information\". Without clear guidelines, the receiving party may not fully understand what they are obligated to protect.\n\n* 3. What evidence is available and what is not:\n- Available evidence: The incoming clause and the approved standard clause provide the only available evidence.\n- Not available evidence: Specific details about the scope of confidential information, the duration of the agreement, and any consequences for breach are not provided in the incoming clause. The explanation of potential risks is based mainly on anomaly detection, as there is limited information to work with."
+    },
+    {
+        "contract_clause": "Definition of Confidential Information Confidential Information includes business plans, source code, customer lists, financial information, trade secrets, and any information marked confidential",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "The Receiving Party shall protect Confidential Information and shall not disclose it to third parties without prior written consent Exclusions Information that is publicly available, independently developed, or lawfully obtained from a third party shall not be considered Confidential Information",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Return of Information Upon written request, the Receiving Party shall return or destroy all Confidential Information",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.831919252872467,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.10084844827651977,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "The confidentiality obligations shall remain in effect for five years after termination of this Agreement",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7046619653701782,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.17720282077789307,
+        "risk_level": "MEDIUM",
+        "ai_explanation": "Here are three short bullets explaining the differences and risks:\n\n* What appears different from the standard clause:\n  - The incoming clause specifies a duration of five years for the confidentiality obligations after termination of the Agreement, which is not present in the standard clause.\n\n* Why the clause may be risky:\n  - The clause may be risky because it introduces a time limit for confidentiality obligations after the Agreement has terminated, which could potentially create an expectation that confidential information can be disclosed after this period. However, this is based mainly on anomaly detection, as the standard clause does not explicitly address post-termination confidentiality.\n\n* What evidence is available and what is not:\n  - Evidence available: The incoming clause and the approved standard clause are provided.\n  - Evidence not available: Specific details about the Agreement's termination, the nature of the confidential information, or any potential consequences for breaching confidentiality are not provided."
+    },
+    {
+        "contract_clause": "Right The Receiving Party may disclose Confidential Information to any affiliate without obtaining prior consent from the Disclosing Party Risky Clause - Unlimited Liability Waiver The Disclosing Party waives all claims arising from unauthorized disclosure of Confidential Information Risky Clause - One-Sided Termination The Receiving Party may terminate this Agreement at any time without notice, while the Disclosing Party may not terminate the Agreement",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7568761110305786,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.14587433338165282,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "This Agreement shall be governed by the laws of the applicable jurisdiction",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "If any provision is held invalid, the remaining provisions shall remain in effect",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "This document constitutes the entire agreement between the parties",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    }
+]

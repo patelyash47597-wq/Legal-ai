@@ -1,0 +1,132 @@
+[
+    {
+        "contract_clause": "This Nondisclosure Agreement or (\"Agreement\") has been entered into on the date of ______________________________ and is by and between: Party Disclosing Information: ______________________________ with a mailing address of ____________________________________________________________ (“Disclosing Party”). Party Receiving Information: ______________________________ with a mailing address of ____________________________________________________________ (“Receiving Party”).",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.9127207290712255,
+        "combined_risk_score": 0.9127207290712255,
+        "risk_level": "HIGH",
+        "ai_explanation": "No sufficiently similar standard clause was found. This explanation is based only on the incoming clause and the available evidence. Risk assessment is based mainly on anomaly detection because the clause could not be matched confidently."
+    },
+    {
+        "contract_clause": "For the purpose of preventing the unauthorized disclosure of Confidential Information as defined below. The parties agree to enter into a confidential relationship concerning the disclosure of certain proprietary and confidential information (\"Confidential Information\").",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7475073933601379,
+        "anomaly_score": 0.9074031354500102,
+        "combined_risk_score": 0.5144568181639213,
+        "risk_level": "MEDIUM",
+        "ai_explanation": "Here are three short bullet points:\n\n• **What appears different from the standard clause**: The incoming clause defines Confidential Information, which is not explicitly mentioned in the approved standard clause. The incoming clause also mentions a \"confidential relationship\" and \"certain proprietary and confidential information,\" which are not present in the standard clause.\n\n• **Why the clause may be risky**: The incoming clause may be risky because it does not explicitly state what actions the receiving party is prohibited from taking with the Confidential Information, beyond not disclosing it. The standard clause is more concise and directly addresses the issue of non-disclosure.\n\n• **What evidence is available and what is not**: The evidence available is the incoming clause and the approved standard clause. What is not available is the context in which these clauses are being used, the specific definitions of Confidential Information, and any additional terms or conditions that may be relevant to the agreement."
+    },
+    {
+        "contract_clause": "1. Definition of Confidential Information.",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7171944379806519,
+        "anomaly_score": 0.91025588660538,
+        "combined_risk_score": 0.5337856918537609,
+        "risk_level": "MEDIUM",
+        "ai_explanation": "Based on the provided texts, here are three short bullet points:\n\n* What appears different from the standard clause:\n  - The incoming clause does not define what constitutes confidential information, whereas the approved standard clause is a general statement without providing any context or definition.\n\n* Why the clause may be risky:\n  - The lack of a definition for confidential information in the incoming clause may lead to ambiguity and disputes over what information is considered confidential, potentially making it difficult to enforce the non-disclosure obligation.\n\n* What evidence is available and what is not:\n  - Available evidence: The incoming clause and the approved standard clause.\n  - Not available evidence: Any additional context, definitions, or explanations that might clarify the scope of confidential information or the specific circumstances under which the non-disclosure obligation applies."
+    },
+    {
+        "contract_clause": "For purposes of this Agreement, \"Confidential Information\" shall include all information or material that has or could have commercial value or other utility in the business in which Disclosing Party is engaged. If Confidential Information is in written form, the Disclosing Party shall label or stamp the materials with the word \"Confidential\" or some similar warning. If Confidential Information is transmitted orally, the Disclosing Party shall promptly provide writing indicating that such oral communication constituted Confidential Information.",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.757469117641449,
+        "anomaly_score": 0.9059628197550246,
+        "combined_risk_score": 0.5079036573171405,
+        "risk_level": "MEDIUM",
+        "ai_explanation": "Based on the provided texts, here are three short bullets:\n\n* 1. What appears different from the standard clause: The incoming clause provides a broader definition of \"Confidential Information\" and specifies labeling or written confirmation for written and oral communications, respectively.\n* 2. Why the clause may be risky: The clause may be risky because it does not explicitly state that the receiving party shall not disclose confidential information, unlike the approved standard clause. It only defines what constitutes confidential information.\n* 3. What evidence is available and what is not: \n  - Available evidence: The incoming clause and the approved standard clause.\n  - Not available evidence: Any additional context, payment terms, deadlines, legal consequences, or missing facts that may be relevant to the agreement."
+    },
+    {
+        "contract_clause": "2. Exclusions from Confidential Information.",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7100851535797119,
+        "anomaly_score": 0.9091905172460895,
+        "combined_risk_score": 0.5376251147506087,
+        "risk_level": "HIGH",
+        "ai_explanation": "Based on the provided texts:\n\n* 1. What appears different from the standard clause:\n  - The incoming clause does not specify what confidential information is excluded, whereas the approved standard clause does not provide any exclusions.\n* 2. Why the clause may be risky:\n  - The incoming clause may be risky because it does not clearly define what information is excluded from confidentiality, potentially leaving room for misinterpretation or disputes.\n* 3. What evidence is available and what is not:\n  - Available evidence: The incoming clause and the approved standard clause.\n  - Not available evidence: Specific details about the exclusions, the context in which the clauses are being used, or any additional information that may clarify the intended meaning."
+    },
+    {
+        "contract_clause": "Receiving Party's obligations under this Agreement do not extend to information that is: (a) publicly known at the time of disclosure or subsequently becomes publicly known through no fault of the Receiving Party; (b) discovered or created by the Receiving Party before disclosure by Disclosing Party; (c) learned by the Receiving Party through legitimate means other than from the Disclosing Party or Disclosing Party's representatives; or (d) is disclosed by Receiving Party with Disclosing Party's prior written approval. Receiving Party shall hold and maintain the Confidential Information in strictest confidence for the sole and exclusive benefit of the Disclosing Party. Receiving Party shall carefully restrict access to Confidential Information to employees, contractors and third parties as is reasonably required and shall require those persons to sign nondisclosure restrictions at least as protective as those in this Agreement. Receiving Party shall not, without the prior written approval of Disclosing Party, use for Receiving Party's benefit, publish, copy, or otherwise disclose to others, or permit the use by others for their benefit or to the detriment of Disclosing Party, any Confidential Information. Receiving Party shall return to Disclosing Party any and all records, notes, and other written, printed, or tangible materials in its possession pertaining to Confidential Information immediately if Disclosing Party requests it in writing. The nondisclosure provisions of this Agreement shall survive the termination of this Agreement and Receiving Party's duty to hold Confidential Information in confidence shall remain in effect until the Confidential Information no longer qualifies as a trade secret or until Disclosing Party sends Receiving Party written notice releasing Receiving Party from this Agreement, whichever occurs first.",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7355632781982422,
+        "anomaly_score": 0.9081198382319181,
+        "combined_risk_score": 0.521909968373822,
+        "risk_level": "MEDIUM",
+        "ai_explanation": "Here are three short bullet points:\n\n* What appears different from the standard clause:\n  - The incoming clause provides more detailed obligations for the Receiving Party, including restrictions on access, use, and disclosure of Confidential Information, as well as requirements for employees, contractors, and third parties.\n  - The clause also specifies that the nondisclosure provisions survive the termination of the Agreement and outlines the conditions under which the Receiving Party's duty to hold Confidential Information in confidence ends.\n* Why the clause may be risky:\n  - The clause may be risky because it does not include any specific penalties or consequences for breach, which could make it difficult to enforce.\n  - The clause also relies on the Disclosing Party to request the return of Confidential Information in writing, which could lead to delays or disputes.\n* What evidence is available and what is not:\n  - Evidence available: The incoming clause and the approved standard clause.\n  - Evidence not available: Payment terms, deadlines, specific penalties or consequences for breach, or any additional facts or context that may be relevant to the Agreement."
+    },
+    {
+        "contract_clause": "Copyright © 2020 NonDisclosureAgreement.com.",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.9109631502949092,
+        "combined_risk_score": 0.9109631502949092,
+        "risk_level": "HIGH",
+        "ai_explanation": "No sufficiently similar standard clause was found. This explanation is based only on the incoming clause and the available evidence. Risk assessment is based mainly on anomaly detection because the clause could not be matched confidently."
+    },
+    {
+        "contract_clause": "Nothing contained in this Agreement shall be deemed to constitute either party a partner, joint venture or employee of the other party for any purpose. If a court finds any provision of this Agreement invalid or unenforceable, the remainder of this Agreement shall be interpreted so as best to affect the intent of the parties. This Agreement expresses the complete understanding of the parties with respect to the subject matter and supersedes all prior proposals, agreements, representations, and understandings.",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.9095462336135836,
+        "combined_risk_score": 0.9095462336135836,
+        "risk_level": "HIGH",
+        "ai_explanation": "No sufficiently similar standard clause was found. This explanation is based only on the incoming clause and the available evidence. Risk assessment is based mainly on anomaly detection because the clause could not be matched confidently."
+    },
+    {
+        "contract_clause": "This Agreement may not be amended except in writing signed by both parties.",
+        "matched_standard_clause": "Either party may terminate this agreement with written notice.",
+        "clause_type": "Termination",
+        "similarity_score": 0.8018286228179932,
+        "anomaly_score": 0.9109631502949092,
+        "combined_risk_score": 0.4832880864271678,
+        "risk_level": "MEDIUM",
+        "ai_explanation": "Here are three short bullet points:\n\n* 1. What appears different from the standard clause:\n    - The incoming clause requires an amendment to be in writing and signed by both parties, whereas the approved standard clause does not specify any requirements for termination.\n* 2. Why the clause may be risky:\n    - The incoming clause may be risky because it does not provide a clear process for amending the agreement, which could lead to disputes or misunderstandings between the parties.\n* 3. What evidence is available and what is not:\n    - Evidence available: Both the incoming clause and the approved standard clause are provided.\n    - Evidence not available: There is no information about the context in which the clauses were used, the specific agreement being referred to, or any other relevant details."
+    },
+    {
+        "contract_clause": "The failure to exercise any right provided in this Agreement shall not be a waiver of prior or subsequent rights. Employee is provided notice that an individual shall not be held criminally or civilly liable under any federal or state trade secret law for the disclosure of a trade secret that is made (i) in confidence to a federal, state, or local government official, either directly or indirectly, or to an attorney; and (ii) solely for the purpose of reporting or investigating a suspected violation of law; or is made in a complaint or other document filed in a lawsuit or other proceeding, if such filing is made under seal. An individual who files a lawsuit for retaliation by an employer for reporting a suspected violation of law may disclose the trade secret to the attorney of the individual and use the trade secret information in the court proceeding, if the individual (i) files any document containing the trade secret under seal; and (ii) does not disclose the trade secret, except pursuant to court order. This Agreement and each party's obligations shall be binding on the representatives, assigns and successors of such party.",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.676673948764801,
+        "anomaly_score": 0.9059628197550246,
+        "combined_risk_score": 0.5563807586431292,
+        "risk_level": "HIGH",
+        "ai_explanation": "Here are three short bullet points:\n\n• **What appears different from the standard clause**: The incoming clause provides specific exceptions to the confidentiality obligation, including disclosure to government officials, attorneys, and in court proceedings for reporting or investigating suspected law violations. The standard clause is more general.\n\n• **Why the clause may be risky**: The incoming clause may be risky because it creates exceptions to confidentiality that could potentially lead to unauthorized disclosure of sensitive information. This could compromise the confidentiality of trade secrets and other sensitive information.\n\n• **What evidence is available and what is not**: The incoming clause provides evidence of specific exceptions to confidentiality, but it does not provide evidence of the scope of confidential information or the duration of the confidentiality obligation. The approved standard clause provides evidence of a general confidentiality obligation, but it does not provide evidence of specific exceptions or limitations."
+    },
+    {
+        "contract_clause": "Each party has signed this Agreement through its authorized representative.",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.9084773170796929,
+        "combined_risk_score": 0.9084773170796929,
+        "risk_level": "HIGH",
+        "ai_explanation": "No sufficiently similar standard clause was found. This explanation is based only on the incoming clause and the available evidence. Risk assessment is based mainly on anomaly detection because the clause could not be matched confidently."
+    },
+    {
+        "contract_clause": "DISCLOSING PARTY Typed or Printed Name: ___________________________ Typed or Printed Name: ___________________________",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.9161895309152254,
+        "combined_risk_score": 0.9161895309152254,
+        "risk_level": "HIGH",
+        "ai_explanation": "No sufficiently similar standard clause was found. This explanation is based only on the incoming clause and the available evidence. Risk assessment is based mainly on anomaly detection because the clause could not be matched confidently."
+    },
+    {
+        "contract_clause": "Copyright © 2020 NonDisclosureAgreement.com.",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.9109631502949092,
+        "combined_risk_score": 0.9109631502949092,
+        "risk_level": "HIGH",
+        "ai_explanation": "No sufficiently similar standard clause was found. This explanation is based only on the incoming clause and the available evidence. Risk assessment is based mainly on anomaly detection because the clause could not be matched confidently."
+    }
+]

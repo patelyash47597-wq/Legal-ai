@@ -1,0 +1,52 @@
+[
+    {
+        "contract_clause": "COBRA ELECTION FORM\nTo be completed by Employee/Applicant (Please Print)",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.6582801342010498,
+        "anomaly_score": 0.9059628197550246,
+        "combined_risk_score": 0.5674170593023089,
+        "risk_level": "HIGH",
+        "ai_explanation": "**Analysis of the COBRA Election Form Clause**\n\n1. **Risks associated with the clause:**\nThe clause \"The receiving party shall not disclose confidential information\" is overly broad and vague, potentially limiting the employee's ability to discuss their employment, benefits, or other relevant information with their new employer, financial advisor, or other stakeholders.\n\n2. **Differences from the standard clause:**\nThis clause differs from the standard \"non-disclosure\" clause in that it does not specify what constitutes \"confidential information\" or provide any exceptions for disclosure. In contrast, a standard clause would typically outline specific types of confidential information and provide a clear framework for disclosure.\n\n3. **Legal or business impact:**\nThe inclusion of this clause in a COBRA election form may lead to disputes and potential litigation if an employee is found to have disclosed confidential information, even if it was necessary for their new employment or financial situation. This could result in reputational damage, financial losses, and increased administrative burdens for the employer."
+    },
+    {
+        "contract_clause": "EMPLOYEE NAME ____________________________________ S.S.#______/_____/_______\nSTREET ADDRESS ______________________________________________ APT # _________\nCITY __________________________________ WORK ( )_____________________ HOME ( ) ______________________\nINDICATE QUALIFYING EVENT:\nDATE OF QUALIFYING EVENT ______/______/________\n____ Termination of Dependent Eligibility\n____",
+        "matched_standard_clause": "Invoices shall be paid within 30 days.",
+        "clause_type": "Payment",
+        "similarity_score": 0.3790452480316162,
+        "anomaly_score": 0.9144629538375654,
+        "combined_risk_score": 0.7383580505974499,
+        "risk_level": "HIGH",
+        "ai_explanation": "**Analysis of the Incoming Clause**\n\n**1. Why this clause is risky:**\nThe incoming clause is risky because it does not specify the consequences of non-payment within 30 days. This lack of clarity may lead to disputes and potential litigation.\n\n**2. How it differs from the standard clause:**\nThe incoming clause differs from the standard clause in that it does not provide a specific consequence for non-payment, whereas the standard clause is more general and does not specify a payment term.\n\n**3. Legal or business impact:**\nThe legal or business impact of this clause is that it may lead to disputes and potential litigation if invoices are not paid within 30 days. This could result in lost revenue, damage to reputation, and increased administrative costs."
+    },
+    {
+        "contract_clause": "Death of Employee\nEMPLOYEE SIGNATURE ________________________________________________________",
+        "matched_standard_clause": "Invoices shall be paid within 30 days.",
+        "clause_type": "Payment",
+        "similarity_score": 0.3492313027381897,
+        "anomaly_score": 0.9141157513910871,
+        "combined_risk_score": 0.7561075367949145,
+        "risk_level": "HIGH",
+        "ai_explanation": "**Clause Analysis: Death of Employee**\n\n**1. Why this clause is risky:**\nThis clause is risky as it may not account for unforeseen circumstances, such as the employee's death, which could lead to disputes or delays in payment.\n\n**2. How it differs from the standard clause:**\nThis clause differs from the standard clause as it introduces an exception to the payment terms, specifically in the event of the employee's death.\n\n**3. Legal or business impact:**\nThe legal or business impact of this clause is that it may create uncertainty and potential disputes regarding payment obligations in the event of the employee's death, potentially affecting the business's cash flow and relationships with suppliers or contractors."
+    },
+    {
+        "contract_clause": "INDICATE COVERAGE SELECTION:\nMedical Coverage\n___ I (We) elect NOT to continue coverage under the Group Medical Plan for: ___ Myself ___ I (We) elect to CONTINUE coverage under the Group Medical Plan for: ___ Myself ___ I (We) elect NOT to continue coverage under the Group Dental Plan for: ___ Myself ___ I (We) elect to CONTINUE coverage under the Group Dental Plan for: ___ Myself ___",
+        "matched_standard_clause": "Invoices shall be paid within 30 days.",
+        "clause_type": "Payment",
+        "similarity_score": 0.5850747227668762,
+        "anomaly_score": 0.9144629538375654,
+        "combined_risk_score": 0.6147403568155971,
+        "risk_level": "HIGH",
+        "ai_explanation": "**Analysis of the Clause**\n\n1. **Risks:**\nThe clause is risky because it does not specify the consequences of non-payment within 30 days. This may lead to disputes and potential legal issues if invoices are not paid on time.\n\n2. **Differences from Standard Clause:**\nThis clause differs from the standard clause in that it does not include any penalties or interest for late payment. The standard clause is more comprehensive, providing a clear expectation for timely payment.\n\n3. **Legal/Business Impact:**\nThe lack of consequences for non-payment may impact the business's cash flow and relationships with vendors. It may also lead to disputes and potential litigation, resulting in increased costs and reputational damage."
+    },
+    {
+        "contract_clause": "My Dependent(s)\nSpouse's Name _________________ S.S.# _______/_____/_______ DOB _____/_____/______\nSpouse's Street Address _________________________________________________________\nCity _________________________________________ State _______ Zip Code ___________\nDependent(s): (The Employee or Spouse MUST complete for all minors)\nDependent Name S.S.# / / DOB / Dependent Name S.S.# / / DOB / Dependent Name S.S.# / / DOB /\nDependent Name ________________________S.S.# ____/_____/_____ DOB ____/____/_____\nDependent Name ________________________S.S.# ____/_____/_____ DOB ____/____/_____\nDependent Name ________________________S.S.# ____/_____/_____ DOB ____/____/_____",
+        "matched_standard_clause": "Invoices shall be paid within 30 days.",
+        "clause_type": "Payment",
+        "similarity_score": 0.43978190422058105,
+        "anomaly_score": 0.9148095303562512,
+        "combined_risk_score": 0.702054669610152,
+        "risk_level": "HIGH",
+        "ai_explanation": "**Analysis of the Incoming Clause:**\n\n1. **Risks associated with the clause:**\nThe clause requires the Employee or Spouse to complete information for all minors, which may lead to:\n- Inaccurate or incomplete information due to human error.\n- Potential non-compliance with tax laws or regulations.\n- Increased administrative burden and potential disputes.\n\n2. **Differences from the standard clause:**\nThe incoming clause is focused on collecting personal and dependent information, whereas the standard clause pertains to payment terms. The standard clause is a financial agreement, whereas the incoming clause is a personal data collection form.\n\n3. **Legal or business impact:**\nThe incoming clause may have implications for:\n- Data protection and privacy laws (e.g., GDPR, HIPAA).\n- Tax compliance and reporting requirements.\n- Business operations and administrative processes, potentially leading to increased costs or inefficiencies."
+    }
+]

@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: legal-ai-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      apt-get update && apt-get install -y tesseract-ocr
+      pip install -r requirements.txt
+      python -m spacy download en_core_web_sm
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: legal-ai-db
+          property: connectionString
+      - key: GROQ_API_KEY
+        sync: false
+      - key: HF_TOKEN
+        sync: false
+      - key: TESSERACT_CMD
+        value: /usr/bin/tesseract
+  - type: static
+    name: legal-ai-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: cd legal-ai-frontend && npm install && npm run build
+    staticPublishPath: legal-ai-frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://legal-ai-backend.onrender.com
+
+databases:
+  - name: legal-ai-db
+    databaseName: legal_ai_db
+    user: legal_ai_user
+    plan: free

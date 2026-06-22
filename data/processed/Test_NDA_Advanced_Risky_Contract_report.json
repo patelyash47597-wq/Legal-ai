@@ -1,0 +1,132 @@
+[
+    {
+        "contract_clause": "Definition of Confidential Information Confidential Information includes technical data, source code, trade secrets, financial records, customer lists and business plans",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Exclusions Information already publicly known or independently developed shall not be considered confidential information",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Obligations of Receiving Party The Receiving Party shall maintain strict confidentiality and restrict disclosure to authorized personnel only",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.8049100637435913,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.1170539617538452,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Return of Materials Upon request, all confidential documents shall be returned or destroyed",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.706831693649292,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.1759009838104248,
+        "risk_level": "HIGH",
+        "ai_explanation": "Based on the provided clauses, here are three short bullets:\n\n* 1. What appears different from the standard clause: The incoming clause specifies the action to be taken upon request (return or destroy), whereas the approved standard clause does not mention any specific action.\n* 2. Why the clause may be risky: The clause may be risky because it does not specify what happens if the confidential documents are not returned or destroyed upon request, which could lead to potential disputes or misunderstandings.\n* 3. What evidence is available and what is not: The evidence available is the incoming clause and the approved standard clause. What is not available is any additional context, such as the purpose of the confidential documents, the relationship between the parties, or any previous agreements or disputes related to the return of confidential materials. The explanation of potential risk is based mainly on anomaly detection, as the incoming clause introduces a specific action (return or destroy) that is not mentioned in the standard clause."
+    },
+    {
+        "contract_clause": "Governing Law This Agreement shall be governed by applicable laws",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Severability Invalid provisions shall not affect remaining provisions",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Integration This Agreement represents the entire understanding between the parties",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Risky Clause - Unlimited Disclosure The Receiving Party may share confidential information with any third party without obtaining prior consent",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.8019464015960693,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.11883215904235839,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Risky Clause - No Liability The Receiving Party shall bear no liability for any unauthorized disclosure of confidential information",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7700450420379639,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.13797297477722167,
+        "risk_level": "MEDIUM",
+        "ai_explanation": "Based on the provided clauses:\n\n* 1. What appears different from the standard clause:\nThe incoming clause adds a specific condition (\"No Liability\") that is not present in the approved standard clause. The standard clause only prohibits disclosure of confidential information, without mentioning liability.\n* 2. Why the clause may be risky:\nThe clause may be risky because it explicitly excludes liability for unauthorized disclosure, which could potentially encourage the receiving party to be less cautious with confidential information. This could lead to a higher risk of unauthorized disclosure.\n* 3. What evidence is available and what is not:\nThe evidence available is the incoming clause and the approved standard clause. What is not available is any additional context, such as the purpose of the confidentiality agreement, the type of confidential information being shared, or any specific circumstances under which the receiving party might be held liable. The explanation of potential risk is based mainly on anomaly detection, as the addition of \"No Liability\" in the incoming clause is unusual compared to the standard clause."
+    },
+    {
+        "contract_clause": "Risky Clause - Unilateral Amendment The Receiving Party may modify this Agreement at any time without notifying the Disclosing Party",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Risky Clause - One Sided Termination The Receiving Party may terminate the Agreement immediately while the Disclosing Party shall not have such rights",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Waiver Failure to exercise any right shall not constitute a waiver",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    },
+    {
+        "contract_clause": "Binding Effect This Agreement shall bind successors and assigns of both parties",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.0,
+        "risk_level": "LOW",
+        "ai_explanation": "Clause aligns with approved standards. No significant risk identified."
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "type": "Liability",
+        "text": "Liability shall be limited to the total contract value."
+    },
+    {
+        "type": "Confidentiality",
+        "text": "The receiving party shall not disclose confidential information."
+    },
+    {
+        "type": "Termination",
+        "text": "Either party may terminate this agreement with written notice."
+    },
+    {
+        "type": "Payment",
+        "text": "Invoices shall be paid within 30 days."
+    }
+]

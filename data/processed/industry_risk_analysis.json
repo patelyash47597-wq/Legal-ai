@@ -1,0 +1,176 @@
+[
+    {
+        "contract_clause": "NON-DISCLOSURE AGREEMENT (TEST DOCUMENT This Non-Disclosure Agreement (\"Agreement\") is entered into between the Disclosing Party and the Receiving Party",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7201806306838989,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.08394581079483032,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": false,
+        "matched_patterns": [],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring."
+    },
+    {
+        "contract_clause": "Definition of Confidential Information Confidential Information includes all non-public business, technical, financial, and proprietary information disclosed by the Disclosing Party",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.3,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": false,
+        "matched_patterns": [],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring."
+    },
+    {
+        "contract_clause": "Exclusions Confidential Information does not include information that is publicly available, independently developed, or lawfully obtained from a third party",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.3,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": false,
+        "matched_patterns": [],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring."
+    },
+    {
+        "contract_clause": "Return or Destruction of Materials Upon request, the Receiving Party shall promptly return or destroy all Confidential Information and related materials",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7853695154190063,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.06438914537429809,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "return or destroy"
+        ],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring."
+    },
+    {
+        "contract_clause": "Governing Law This Agreement shall be governed by and construed in accordance with the laws of the applicable jurisdiction",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.3,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "governing law"
+        ],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring."
+    },
+    {
+        "contract_clause": "Severability If any provision of this Agreement is held invalid or unenforceable, the remaining provisions shall remain in full force and effect",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.3,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "severability"
+        ],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring."
+    },
+    {
+        "contract_clause": "Entire Agreement This Agreement constitutes the entire understanding between the parties and supersedes all prior agreements relating to the subject matter",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.3,
+        "risk_level": "LOW",
+        "rule_score": 0.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "entire agreement"
+        ],
+        "rule_reason": "Risk determined by weighted similarity and anomaly scoring."
+    },
+    {
+        "contract_clause": "Unlimited Disclosure Rights The Receiving Party may disclose Confidential Information to any third party without obtaining prior written consent",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7933889627456665,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 1.0,
+        "risk_level": "HIGH",
+        "rule_score": 1.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "any third party"
+        ],
+        "rule_reason": "High-risk rule pattern matched."
+    },
+    {
+        "contract_clause": "No Liability The Receiving Party shall bear no liability for unauthorized disclosure of Confidential Information",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7918142080307007,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 1.0,
+        "risk_level": "HIGH",
+        "rule_score": 1.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "no liability"
+        ],
+        "rule_reason": "High-risk rule pattern matched."
+    },
+    {
+        "contract_clause": "Unilateral Modification The Receiving Party may modify this Agreement at any time without notice to the Disclosing Party",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 1.0,
+        "risk_level": "HIGH",
+        "rule_score": 1.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "without notice"
+        ],
+        "rule_reason": "High-risk rule pattern matched."
+    },
+    {
+        "contract_clause": "One-Sided Termination The Receiving Party may terminate this Agreement immediately, while the Disclosing Party shall have no such right",
+        "matched_standard_clause": null,
+        "clause_type": "Unknown",
+        "similarity_score": 0.0,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 0.6,
+        "risk_level": "MEDIUM",
+        "rule_score": 0.6,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "may terminate"
+        ],
+        "rule_reason": "Medium-risk rule pattern matched."
+    },
+    {
+        "contract_clause": "Waiver of Claims The Disclosing Party waives all claims arising from any misuse or disclosure of Confidential Information. IN WITNESS WHEREOF, the parties have executed this Agreement",
+        "matched_standard_clause": "The receiving party shall not disclose confidential information.",
+        "clause_type": "Confidentiality",
+        "similarity_score": 0.7384087443351746,
+        "anomaly_score": 0.0,
+        "combined_risk_score": 1.0,
+        "risk_level": "HIGH",
+        "rule_score": 1.0,
+        "rule_triggered": true,
+        "matched_patterns": [
+            "waives all claims"
+        ],
+        "rule_reason": "High-risk rule pattern matched."
+    }
+]
