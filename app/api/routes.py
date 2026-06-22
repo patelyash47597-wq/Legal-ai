@@ -1,7 +1,10 @@
 """
 app/api/routes.py - All API endpoints with MySQL integration.
 """
-import os, json, shutil
+import json
+import os
+import shutil
+import traceback
 from fastapi import APIRouter, File, UploadFile, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
@@ -49,16 +52,18 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
         save_contract_json(contract_data, f"{PROCESSED_DIR}/contract.json")
         text = contract_data["text"]
     except Exception as e:
+        traceback.print_exc()
         crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=422, detail=f"PDF parsing failed: {e}")
+        raise HTTPException(status_code=500, detail=f"PDF parsing failed: {e}")
 
     try:
         from app.services.industry_clause_engine import extract_clauses, save_clauses
         clauses = extract_clauses(text)
         save_clauses(clauses, f"{PROCESSED_DIR}/industry_clauses.json")
     except Exception as e:
+        traceback.print_exc()
         crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=422, detail=f"Clause extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Clause extraction failed: {e}")
 
     clause_db_objects = crud.create_clauses_bulk(db=db, contract_id=contract_db.id, clauses=clauses)
     print(f"✅ {len(clause_db_objects)} clauses saved to MySQL")
@@ -68,8 +73,9 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
         risk_results = analyze_risk(clauses, standard_path=f"{PROCESSED_DIR}/standard_clauses.json")
         save_risk_results(risk_results, f"{PROCESSED_DIR}/industry_risk_analysis.json")
     except Exception as e:
+        traceback.print_exc()
         crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=422, detail=f"Risk analysis failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Risk analysis failed: {e}")
 
     try:
         from app.services.explainer import generate_explanations, save_final_results
@@ -78,8 +84,9 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
         save_final_results(final_results, f"{PROCESSED_DIR}/{report_filename}")
         save_final_results(final_results, f"{PROCESSED_DIR}/final_contract_analysis.json")
     except Exception as e:
+        traceback.print_exc()
         crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=422, detail=f"AI explanation failed: {e}")
+        raise HTTPException(status_code=500, detail=f"AI explanation failed: {e}")
 
     crud.create_risk_results_bulk(db=db, clause_db_objects=clause_db_objects, risk_results=final_results)
 

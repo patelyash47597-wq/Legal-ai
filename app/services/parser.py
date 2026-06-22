@@ -7,6 +7,7 @@ import json
 import os
 import re
 import shutil
+import traceback
 from pathlib import Path
 
 import pytesseract
@@ -109,16 +110,41 @@ def parse_pdf(pdf_path: str) -> dict:
 
     print(f"📄 Parsing PDF: {filename}")
 
-    elements = partition_pdf(
-        filename=pdf_path,
-        strategy="hi_res",
-        infer_table_structure=True,
-    )
+    elements = None
+    last_error = None
+
+    try:
+        elements = partition_pdf(
+            filename=pdf_path,
+            strategy="hi_res",
+            infer_table_structure=True,
+        )
+    except Exception as exc:
+        last_error = exc
+        print(f"⚠️ hi_res parsing failed for {filename}: {exc}")
+
+    if elements is None:
+        try:
+            elements = partition_pdf(
+                filename=pdf_path,
+                strategy="fast",
+                infer_table_structure=False,
+            )
+            print(f"✅ Fallback parsing succeeded for {filename} using fast strategy")
+        except Exception as exc:
+            last_error = exc
+            print(f"⚠️ fast parsing failed for {filename}: {exc}")
+
+    if elements is None:
+        raise ValueError(
+            f"Unable to parse PDF with available strategies. Last error: {last_error}"
+        )
 
     full_text = ""
     for el in elements:
-        if el.text:
-            full_text += el.text + "\n"
+        text = getattr(el, "text", None)
+        if text:
+            full_text += text + "\n"
 
     cleaned_text = _clean_extracted_text(full_text)
 
