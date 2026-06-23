@@ -34,6 +34,10 @@ async def health_check():
 
 @router.post("/analyze", tags=["Analysis"])
 async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(get_db)):
+    print(f"\n{'='*60}")
+    print(f"🔍 [ANALYZE] Starting analysis for: {file.filename}")
+    print(f"{'='*60}")
+    
     if not file.filename.endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files accepted.")
 
@@ -58,25 +62,31 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
         print(f"⚠️ DB unavailable during contract creation: {exc}")
 
     try:
+        print("📄 Step 1: Parsing PDF...")
         from app.services.parser import parse_pdf, save_contract_json
         contract_data = parse_pdf(upload_path)
         save_contract_json(contract_data, f"{PROCESSED_DIR}/contract.json")
         text = contract_data["text"]
+        print(f"✅ PDF parsed successfully ({len(text)} characters)")
     except Exception as e:
+        print(f"❌ PDF parsing failed: {e}")
         traceback.print_exc()
         if contract_db is not None:
             crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=500, detail=f"PDF parsing failed: {e}")
+        raise HTTPException(status_code=500, detail=f"PDF parsing failed: {str(e)}")
 
     try:
+        print("📋 Step 2: Extracting clauses...")
         from app.services.industry_clause_engine import extract_clauses, save_clauses
         clauses = extract_clauses(text)
         save_clauses(clauses, f"{PROCESSED_DIR}/industry_clauses.json")
+        print(f"✅ Extracted {len(clauses)} clauses")
     except Exception as e:
+        print(f"❌ Clause extraction failed: {e}")
         traceback.print_exc()
         if contract_db is not None:
             crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=500, detail=f"Clause extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Clause extraction failed: {str(e)}")
 
     clause_db_objects = []
     if contract_db is not None:
@@ -92,29 +102,35 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
             print(f"⚠️ DB unavailable during clause bulk insert: {exc}")
 
     try:
+        print("⚠️ Step 3: Analyzing risk...")
         from app.services.risk_engine import analyze_risk, save_risk_results
         risk_results = analyze_risk(
             clauses,
             standard_path=f"{PROCESSED_DIR}/standard_clauses.json",
         )
         save_risk_results(risk_results, f"{PROCESSED_DIR}/industry_risk_analysis.json")
+        print(f"✅ Risk analysis completed")
     except Exception as e:
+        print(f"❌ Risk analysis failed: {e}")
         traceback.print_exc()
         if contract_db is not None:
             crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=500, detail=f"Risk analysis failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Risk analysis failed: {str(e)}")
 
     try:
+        print("🤖 Step 4: Generating AI explanations...")
         from app.services.explainer import generate_explanations, save_final_results
         final_results = generate_explanations(risk_results)
         report_filename = file.filename.replace(".pdf", "_report.json")
         save_final_results(final_results, f"{PROCESSED_DIR}/{report_filename}")
         save_final_results(final_results, f"{PROCESSED_DIR}/final_contract_analysis.json")
+        print(f"✅ Explanations generated successfully")
     except Exception as e:
+        print(f"❌ AI explanation failed: {e}")
         traceback.print_exc()
         if contract_db is not None:
             crud.update_contract_status(db, contract_db.id, "failed")
-        raise HTTPException(status_code=500, detail=f"AI explanation failed: {e}")
+        raise HTTPException(status_code=500, detail=f"AI explanation failed: {str(e)}")
 
     if contract_db is not None and clause_db_objects:
         try:
@@ -163,6 +179,15 @@ async def analyze_contract(file: UploadFile = File(...), db: Session = Depends(g
 
     if db_error is not None:
         response["db_warning"] = str(db_error)
+
+    print(f"{'='*60}")
+    print(f"✅ [ANALYZE] Completed successfully!")
+    print(f"   Total Clauses: {len(final_results)}")
+    print(f"   HIGH Risk: {risk_levels.count('HIGH')}")
+    print(f"   MEDIUM Risk: {risk_levels.count('MEDIUM')}")
+    print(f"   LOW Risk: {risk_levels.count('LOW')}")
+    print(f"   Overall Risk: {overall_risk}")
+    print(f"{'='*60}\n")
 
     return response
 

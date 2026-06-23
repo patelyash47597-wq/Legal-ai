@@ -99,6 +99,17 @@ async def exception_handler(request: Request, exc: Exception):
 app.include_router(router)
 
 # ----------------------------------------
+# STARTUP
+# ----------------------------------------
+
+@app.on_event("startup")
+async def startup_event():
+    """Run initialization on app startup."""
+    from app.startup import startup, startup_async
+    startup()
+    await startup_async()
+
+# ----------------------------------------
 # RUN
 # ----------------------------------------
 

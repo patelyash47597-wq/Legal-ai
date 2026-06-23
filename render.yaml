@@ -17,9 +17,11 @@ services:
           name: legal-ai-db
           property: connectionString
       - key: GROQ_API_KEY
-        sync: false
+        # Set this in Render Dashboard → Settings → Environment
+        # Get from: https://console.groq.com/api-keys
       - key: HF_TOKEN
-        sync: false
+        # Set this in Render Dashboard → Settings → Environment
+        # Get from: https://huggingface.co/settings/tokens
       - key: TESSERACT_CMD
         value: /usr/bin/tesseract
 

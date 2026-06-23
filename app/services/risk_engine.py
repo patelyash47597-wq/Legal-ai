@@ -66,6 +66,9 @@ def _get_model():
             print("✅ Risk engine model loaded")
         except Exception as exc:
             print(f"⚠️ Could not load risk model: {exc}")
+            print("   This may be due to missing HF_TOKEN environment variable")
+            print("   Set HF_TOKEN on Render Dashboard → Settings → Environment")
+            print("   Get it from: https://huggingface.co/settings/tokens")
             _model = None
     return _model
 

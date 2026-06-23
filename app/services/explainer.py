@@ -24,8 +24,21 @@ def _get_client():
     global _client
     if _client is None:
         if Groq is None:
+            print("⚠️  Groq SDK not available - AI explanations will be disabled")
             return None
-        _client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        
+        api_key = os.getenv("GROQ_API_KEY", "").strip()
+        if not api_key:
+            print("⚠️  GROQ_API_KEY not set - AI explanations will be disabled")
+            print("   Set GROQ_API_KEY on Render Dashboard → Settings → Environment")
+            print("   Get it from: https://console.groq.com/api-keys")
+            return None
+        
+        try:
+            _client = Groq(api_key=api_key)
+        except Exception as e:
+            print(f"⚠️  Failed to initialize Groq client: {e}")
+            return None
     return _client
 
 
