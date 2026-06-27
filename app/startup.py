@@ -4,6 +4,7 @@ Initialize backend services on app startup.
 Validates environment, preloads models to avoid request timeouts.
 """
 
+import asyncio
 import os
 from dotenv import load_dotenv
 
@@ -48,7 +49,7 @@ def validate_environment():
 
 
 async def preload_models():
-    """Preload models asynchronously to avoid request timeouts."""
+    """Preload models asynchronously in the background to avoid blocking startup."""
     print("🔄 PRELOADING MODELS (this may take 1-2 minutes on first run)...")
     
     try:
@@ -73,7 +74,7 @@ async def preload_models():
         print("   → Loading spaCy model...")
         import spacy
         try:
-            nlp = spacy.load("en_core_web_sm")
+            spacy.load("en_core_web_sm")
             print("   ✅ spaCy model loaded")
         except Exception as e:
             print(f"   ⚠️  Could not load spaCy: {e}")
@@ -90,5 +91,6 @@ def startup():
 
 
 async def startup_async():
-    """Run async startup tasks."""
-    await preload_models()
+    """Schedule background model initialization and return immediately."""
+    print("🔧 Scheduling background startup tasks")
+    asyncio.create_task(preload_models())
