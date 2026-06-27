@@ -3,6 +3,7 @@ Legal Contract Risk Analyzer — FastAPI Backend
 Entry point. Run: python main.py
 """
 
+import asyncio
 import os
 
 import uvicorn
@@ -107,7 +108,8 @@ async def startup_event():
     """Run initialization on app startup."""
     from app.startup import startup, startup_async
     startup()
-    await startup_async()
+    # Schedule async startup tasks in the background so FastAPI can bind immediately.
+    asyncio.create_task(startup_async())
 
 # ----------------------------------------
 # RUN
