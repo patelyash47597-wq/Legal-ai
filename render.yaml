@@ -26,6 +26,8 @@ services:
         # Get from: https://huggingface.co/settings/tokens
       - key: TESSERACT_CMD
         value: /usr/bin/tesseract
+      - key: LAZY_LOAD_MODELS
+        value: "true"
 
   - type: web
     name: legal-ai-frontend
