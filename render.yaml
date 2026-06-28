@@ -9,7 +9,6 @@ services:
       pip install -r requirements.txt
       python -m spacy download en_core_web_sm
     startCommand: python -m uvicorn main:app --host 0.0.0.0 --port 10000
-    healthCheckType: http
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION
