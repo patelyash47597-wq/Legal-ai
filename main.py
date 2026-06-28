@@ -12,18 +12,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routes import router
-from app.database import models
-from app.database.database import Base, engine
-
-# ----------------------------------------
-# DATABASE INITIALIZATION
-# ----------------------------------------
-
-try:
-    Base.metadata.create_all(bind=engine)
-    print("✅ Database tables created/verified!")
-except Exception as e:
-    print(f"⚠️ Database startup warning: {e}")
 
 # ----------------------------------------
 # APP INIT
@@ -103,26 +91,16 @@ app.include_router(router)
 # STARTUP
 # ----------------------------------------
 
-# Remove this block from module level:
-# try:
-#     Base.metadata.create_all(bind=engine)
-#     print("✅ Database tables created/verified!")
-# except Exception as e:
-#     print(f"⚠️ Database startup warning: {e}")
-
 @app.on_event("startup")
 async def startup_event():
-    # DB init first, with a timeout
-    import asyncio
     from app.database.database import engine
     from app.database.models import Base
-    
+
+    loop = asyncio.get_event_loop()
     try:
         await asyncio.wait_for(
-            asyncio.get_event_loop().run_in_executor(
-                None, lambda: Base.metadata.create_all(bind=engine)
-            ),
-            timeout=10.0
+            loop.run_in_executor(None, lambda: Base.metadata.create_all(bind=engine)),
+            timeout=10.0,
         )
         print("✅ Database tables created/verified!")
     except asyncio.TimeoutError:
@@ -139,7 +117,7 @@ async def startup_event():
 # ----------------------------------------
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", "8000"))
+    port = int(os.getenv("PORT", "10000"))
     print(f"🚀 Starting app on 0.0.0.0:{port}")
     uvicorn.run(
         "main:app",
