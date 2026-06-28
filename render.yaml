@@ -8,23 +8,26 @@ services:
       apt-get update && apt-get install -y tesseract-ocr
       pip install -r requirements.txt
       python -m spacy download en_core_web_sm
-    startCommand: python -m uvicorn main:app --host 0.0.0.0 --port 10000
+    startCommand: bash -lc "exec python -m uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"
+    healthCheckType: http
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.10
-      - key: PORT
-        value: "10000"
       - key: DATABASE_URL
         fromDatabase:
           name: legal-ai-db
           property: connectionString
       - key: GROQ_API_KEY
-        sync: false
+        # Set this in Render Dashboard → Settings → Environment
+        # Get from: https://console.groq.com/api-keys
       - key: HF_TOKEN
-        sync: false
+        # Set this in Render Dashboard → Settings → Environment
+        # Get from: https://huggingface.co/settings/tokens
       - key: TESSERACT_CMD
         value: /usr/bin/tesseract
+      - key: LAZY_LOAD_MODELS
+        value: "true"
 
   - type: web
     name: legal-ai-frontend
