@@ -11,7 +11,6 @@ import traceback
 from pathlib import Path
 
 import pytesseract
-from unstructured.partition.pdf import partition_pdf
 
 # ----------------------------------------
 # TESSERACT PATH (supports Linux/Render)
@@ -46,34 +45,22 @@ def _is_noise_or_form_label(text: str) -> bool:
     line = _normalize_text(text)
     if not line:
         return True
-
     if len(line) < 4:
         return True
-
     if re.fullmatch(r"page\s*\d+", line, re.IGNORECASE):
         return True
-
     if re.fullmatch(r"[-=_]{3,}", line):
         return True
-
     if any(re.fullmatch(pattern, line, re.IGNORECASE) for pattern in FORM_FIELD_PATTERNS):
         return True
-
     lowered = line.lower()
     if len(line.split()) <= 3 and any(
         token in lowered for token in [
-            "employee name",
-            "address",
-            "phone",
-            "date",
-            "social security number",
-            "ssn",
-            "signature",
-            "email",
+            "employee name", "address", "phone", "date",
+            "social security number", "ssn", "signature", "email",
         ]
     ):
         return True
-
     return False
 
 
@@ -86,7 +73,6 @@ def _clean_extracted_text(text: str) -> str:
         if _is_noise_or_form_label(line):
             continue
         cleaned_lines.append(line)
-
     cleaned_text = "\n".join(cleaned_lines)
     return re.sub(r"\n{3,}", "\n\n", cleaned_text).strip()
 
@@ -96,18 +82,9 @@ def _clean_extracted_text(text: str) -> str:
 # ----------------------------------------
 
 def parse_pdf(pdf_path: str) -> dict:
-    """
-    Parses a PDF file and extracts full text.
-
-    Args:
-        pdf_path: Full path to the PDF file
-
-    Returns:
-        dict with keys: document_name, text
-    """
+    from unstructured.partition.pdf import partition_pdf
 
     filename = Path(pdf_path).name
-
     print(f"📄 Parsing PDF: {filename}")
 
     elements = None
@@ -136,9 +113,7 @@ def parse_pdf(pdf_path: str) -> dict:
             print(f"⚠️ fast parsing failed for {filename}: {exc}")
 
     if elements is None:
-        raise ValueError(
-            f"Unable to parse PDF with available strategies. Last error: {last_error}"
-        )
+        raise ValueError(f"Unable to parse PDF with available strategies. Last error: {last_error}")
 
     full_text = ""
     for el in elements:
@@ -167,17 +142,10 @@ def parse_pdf(pdf_path: str) -> dict:
 # SAVE CONTRACT JSON
 # ----------------------------------------
 
-def save_contract_json(
-    data: dict,
-    output_path: str = "data/processed/contract.json",
-) -> str:
-    """Saves parsed contract data to JSON file."""
-
+def save_contract_json(data: dict, output_path: str = "data/processed/contract.json") -> str:
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
-
     print(f"✅ Contract saved: {output_path}")
     return output_path
 
@@ -187,10 +155,7 @@ def save_contract_json(
 # ----------------------------------------
 
 def load_contract_json(path: str = "data/processed/contract.json") -> dict:
-    """Loads an existing contract JSON from disk."""
-
     if not os.path.exists(path):
         raise FileNotFoundError(f"Contract JSON not found at: {path}")
-
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)

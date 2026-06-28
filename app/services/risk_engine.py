@@ -6,12 +6,6 @@ Risk analysis using category-aware FAISS search and anomaly detection.
 import json
 import os
 
-import faiss
-import numpy as np
-from sentence_transformers import SentenceTransformer
-from sklearn.ensemble import IsolationForest
-from sklearn.metrics.pairwise import cosine_similarity
-
 from app.services.industry_clause_engine import classify_clause, clean_clause, classify_clause_type
 
 MIN_SIMILARITY = 0.50
@@ -58,6 +52,7 @@ _std_embeddings = None
 
 
 def _get_model():
+    from sentence_transformers import SentenceTransformer
     global _model
     if _model is None:
         try:
@@ -74,6 +69,7 @@ def _get_model():
 
 
 def _encode_clause(text, model, max_words=400, overlap=50):
+    import numpy as np
     words = text.split()
     if len(words) <= max_words:
         return model.encode([text])[0]
@@ -116,6 +112,9 @@ def _normalize_standard_items(payload):
 
 
 def _load_standard_data(standard_path):
+    import faiss
+    import numpy as np
+    from sklearn.ensemble import IsolationForest
     global _standard_indexes, _iso_forest, _std_data, _std_embeddings
 
     if _standard_indexes is not None:
@@ -180,8 +179,6 @@ def evaluate_clause_risk(
     anomaly_score: float = 0.0,
     matched_clause: dict | None = None,
 ) -> dict:
-    """Applies the hybrid risk scoring pipeline using explicit rule patterns, similarity, and anomaly detection."""
-
     normalized_clause = (clause_text or "").lower()
     matched_patterns = []
 
@@ -220,7 +217,7 @@ def evaluate_clause_risk(
             matched_patterns.append(pattern)
             break
 
-    rule_score = 0.0 if matched_patterns else 0.0
+    rule_score = 0.0
     final_score = rule_score * 0.5 + (1 - similarity_score) * 0.3 + anomaly_score * 0.2
     if final_score >= 0.7:
         risk = "HIGH"
@@ -239,6 +236,9 @@ def evaluate_clause_risk(
 
 
 def analyze_risk(contract_data: list, standard_path: str = "data/processed/standard_clauses.json") -> list:
+    import numpy as np
+    from sklearn.metrics.pairwise import cosine_similarity
+
     model = _get_model()
     _load_standard_data(standard_path)
 
@@ -283,6 +283,8 @@ def analyze_risk(contract_data: list, standard_path: str = "data/processed/stand
         similarity = 0.0
         matched_clause = None
         clause_type = predicted_type
+        clause_emb = None
+        anomaly_score = 0.0
 
         if model is not None and candidate_group is not None:
             clause_emb = np.array(_encode_clause(clause_text, model)).astype("float32").reshape(1, -1)
@@ -291,15 +293,10 @@ def analyze_risk(contract_data: list, standard_path: str = "data/processed/stand
             matched_clause = candidate_group["items"][matched_idx]
             similarity = float(cosine_similarity(clause_emb, [candidate_group["embeddings"][matched_idx]])[0][0])
             clause_type = matched_clause.get("clause_type", predicted_type)
-        else:
-            clause_emb = None
-            anomaly_score = 0.0
 
         if _iso_forest is not None and clause_emb is not None:
             raw_score = _iso_forest.score_samples(clause_emb)[0]
             anomaly_score = float(1 / (1 + np.exp(5 * raw_score)))
-        else:
-            anomaly_score = 0.0
 
         rule_result = evaluate_clause_risk(
             clause_text=clause_text,
@@ -348,10 +345,8 @@ def analyze_risk(contract_data: list, standard_path: str = "data/processed/stand
 
 def save_risk_results(results: list, output_path: str = "data/processed/industry_risk_analysis.json") -> str:
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=4)
-
     print(f"✅ Risk results saved: {output_path}")
     return output_path
 
@@ -359,6 +354,5 @@ def save_risk_results(results: list, output_path: str = "data/processed/industry
 def load_risk_results(path: str = "data/processed/industry_risk_analysis.json") -> list:
     if not os.path.exists(path):
         raise FileNotFoundError(f"Not found: {path}")
-
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        return json.load(f)  
