@@ -103,12 +103,35 @@ app.include_router(router)
 # STARTUP
 # ----------------------------------------
 
+# Remove this block from module level:
+# try:
+#     Base.metadata.create_all(bind=engine)
+#     print("✅ Database tables created/verified!")
+# except Exception as e:
+#     print(f"⚠️ Database startup warning: {e}")
+
 @app.on_event("startup")
 async def startup_event():
-    """Run initialization on app startup."""
+    # DB init first, with a timeout
+    import asyncio
+    from app.database.database import engine
+    from app.database.models import Base
+    
+    try:
+        await asyncio.wait_for(
+            asyncio.get_event_loop().run_in_executor(
+                None, lambda: Base.metadata.create_all(bind=engine)
+            ),
+            timeout=10.0
+        )
+        print("✅ Database tables created/verified!")
+    except asyncio.TimeoutError:
+        print("⚠️ DB init timed out — continuing anyway")
+    except Exception as e:
+        print(f"⚠️ Database startup warning: {e}")
+
     from app.startup import startup, startup_async
     startup()
-    # Schedule async startup tasks in the background so FastAPI can bind immediately.
     asyncio.create_task(startup_async())
 
 # ----------------------------------------
