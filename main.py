@@ -72,7 +72,7 @@ async def startup_event():
     try:
         await asyncio.wait_for(
             loop.run_in_executor(None, lambda: Base.metadata.create_all(bind=engine)),
-            timeout=10.0,
+            timeout=30.0,
         )
         print("✅ DB ready")
     except asyncio.TimeoutError:
