@@ -14,13 +14,10 @@ sentence-transformers==5.4.1
 spacy==3.8.13
 torch==2.11.0
 transformers==5.8.0
-pytesseract==0.3.13
-unstructured==0.22.32
-pdf2image==1.17.0
+pypdf==6.14.2
 pillow==12.2.0
 requests==2.33.1
 groq==1.2.0
 langchain==1.2.17
 langchain-community==0.4.1
 pdfminer.six==20231228
-pi-heif
