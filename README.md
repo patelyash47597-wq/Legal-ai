@@ -1,3 +1,7 @@
+<img width="1872" height="887" alt="Screenshot 2026-06-29 154237" src="https://github.com/user-attachments/assets/871ff902-7119-4775-b76d-41e4cf58b00d" />
+<img width="1881" height="898" alt="Screenshot 2026-06-29 154324" src="https://github.com/user-attachments/assets/368834e1-b5b9-48c8-9ee3-e735a5e09fc0" />
+<img width="1866" height="887" alt="Screenshot 2026-06-29 154407" src="https://github.com/user-attachments/assets/e37ea7ac-a288-4c97-8624-ad4cfdd4b8b3" />
+<img width="1868" height="861" alt="Screenshot 2026-06-29 154447" src="https://github.com/user-attachments/assets/332d953b-9e8c-4fbc-a0f4-19998e5a7f0e" />
 # ⚖️ LegalAI — Contract Risk Analyzer
 
 > AI-powered legal contract risk analysis. Upload a PDF contract and get instant risk assessment with clause-by-clause breakdown.
